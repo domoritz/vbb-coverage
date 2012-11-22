@@ -25,13 +25,13 @@ $(function() {
     var coverageLayer = new L.TileLayer.MaskCanvas({'opacity': 0.5, 'radius': 3});
 
     var loadOverlay = function(id) {
-        var url = '/data/' + id + '.json';
+        var url = 'data/' + id + '.json';
         $.getJSON(url).success(function(data) {
             coverageLayer.setData(data);
             //L.rectangle(coverageLayer.bounds, {color: "#ff7800", weight: 1}).addTo(map);
             map.fitBounds(coverageLayer.bounds);
             map.addLayer(coverageLayer);
-            coverageLayer.setZIndex(1000);
+            coverageLayer.setZIndex(100);
             coverageLayer.bringToFront();
         }).error(function(err) {
             alert('An error occurred', err);
