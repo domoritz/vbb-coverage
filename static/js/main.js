@@ -23,7 +23,7 @@ $(function() {
     //================
     // Set up overlays
 
-    var coverageLayer = new L.TileLayer.MaskCanvas({'opacity': 0.5, 'radius': 3});
+    var coverageLayer = new L.TileLayer.MaskCanvas({'opacity': 0.5, 'radius': 3, 'attribution': 'Get the data at <a href="//daten.berlin.de/datensaetze/vbb-fahrplan2012">daten.berlin.de</a>. Code on <a href="//github.com/domoritz/vbb-coverage">Github</a>'});
 
     var loadOverlay = function(id) {
         var url = 'data/' + id + '.json';
