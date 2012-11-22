@@ -1,0 +1,24 @@
+body {
+	overflow: hidden;
+	font-family: sans-serif;
+}
+
+#map {
+	top: 0;
+	left: 0;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.transport-selection {
+	position: fixed;
+	left: 150px;
+	top: 10px;
+	z-index: 1000;
+	width: 600px;
+}
+
+.select2-container {
+	min-width: 400px;
+}
