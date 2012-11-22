@@ -13,11 +13,9 @@ $(function() {
 
     map = new L.Map('map', {
         center: new L.LatLng(51.505, -0.09),
-        zoom: 10,
-        layers: [layer_CloudMate]
+        zoom: 10
     });
 
-    controls.addTo(map);
     L.control.scale().addTo(map);
     L.control.locate().addTo(map);
 
