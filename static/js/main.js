@@ -12,8 +12,9 @@ $(function() {
     );
 
     map = new L.Map('map', {
-        center: new L.LatLng(51.505, -0.09),
-        zoom: 10
+        center: new L.LatLng(52.51538, 13.40997),
+        zoom: 8,
+        layers: [layer_CloudMate]
     });
 
     L.control.scale().addTo(map);
@@ -31,8 +32,6 @@ $(function() {
             //L.rectangle(coverageLayer.bounds, {color: "#ff7800", weight: 1}).addTo(map);
             map.fitBounds(coverageLayer.bounds);
             map.addLayer(coverageLayer);
-            coverageLayer.setZIndex(100);
-            coverageLayer.bringToFront();
         }).error(function(err) {
             alert('An error occurred', err);
         });
