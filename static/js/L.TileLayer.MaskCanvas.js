@@ -139,11 +139,13 @@ L.TileLayer.MaskCanvas = L.TileLayer.Canvas.extend({
         var tileSize = this.options.tileSize;
 
         var nwPoint = ctx.tilePoint.multiplyBy(tileSize);
-        var centerPoint = nwPoint.add(new L.Point(tileSize/2, tileSize/2));
         var sePoint = nwPoint.add(new L.Point(tileSize, tileSize));
 
-        this._latlng = this._map.unproject(centerPoint);
-        this.projectLatlngs();
+        if (this.options.useAbsoluteRadius) {
+            var centerPoint = nwPoint.add(new L.Point(tileSize/2, tileSize/2));
+            this._latlng = this._map.unproject(centerPoint);
+            this.projectLatlngs();
+        }
 
         // padding
         var pad = new L.Point(this._getRadius(), this._getRadius());
