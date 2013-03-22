@@ -44,12 +44,6 @@ L.TileLayer.MaskCanvas = L.TileLayer.Canvas.extend({
     _createTile: function () {
         var tile = this._canvasProto.cloneNode(false);
         tile.onselectstart = tile.onmousemove = L.Util.falseFn;
-
-        var tileSize = this.options.tileSize;
-        var g = tile.getContext('2d');
-        g.fillStyle = this.options.color;
-        g.fillRect(0, 0, tileSize, tileSize);
-        g.globalCompositeOperation = 'destination-out';
         return tile;
     },
 
@@ -66,6 +60,11 @@ L.TileLayer.MaskCanvas = L.TileLayer.Canvas.extend({
                 y: d[0] //lat
             });
         });
+        this.redraw();
+    },
+
+    setRadius: function(radius) {
+        this.options.radius = radius;
         this.redraw();
     },
 
@@ -86,7 +85,12 @@ L.TileLayer.MaskCanvas = L.TileLayer.Canvas.extend({
         var c = ctx.canvas,
             g = c.getContext('2d'),
             self = this,
-            p;
+            p,
+            tileSize = this.options.tileSize;
+        g.globalCompositeOperation = 'source-over';
+        g.fillStyle = this.options.color;
+        g.fillRect(0, 0, tileSize, tileSize);
+        g.globalCompositeOperation = 'destination-out';
         coordinates.forEach(function(coords){
             p = self._tilePoint(ctx, coords);
             g.beginPath();

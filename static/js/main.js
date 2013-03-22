@@ -23,7 +23,10 @@ $(function() {
     //================
     // Set up overlays
 
-    var coverageLayer = new L.TileLayer.MaskCanvas({'opacity': 0.5, radius: 750, useAbsoluteRadius: true, 'attribution': 'Get the data at <a href="//daten.berlin.de/datensaetze/vbb-fahrplan2012">daten.berlin.de</a>. Code on <a href="//github.com/domoritz/vbb-coverage">Github</a>'});
+    var initRadius = 800;
+    $('input.range').attr('value', initRadius);
+
+    var coverageLayer = new L.TileLayer.MaskCanvas({'opacity': 0.5, radius: initRadius, useAbsoluteRadius: true, 'attribution': 'Get the data at <a href="//daten.berlin.de/datensaetze/vbb-fahrplan2012">daten.berlin.de</a>. Code on <a href="//github.com/domoritz/vbb-coverage">Github</a>'});
 
     var loadOverlay = function(id) {
         var url = 'data/' + id + '.json';
@@ -38,4 +41,9 @@ $(function() {
     };
 
     loadOverlay('VBB');
+
+    $('input.range').change(function() {
+        var value = $(this).val();
+        coverageLayer.setRadius(value);
+    });
 });

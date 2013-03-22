@@ -22,3 +22,18 @@ body {
 .select2-container {
 	min-width: 400px;
 }
+
+.overlay {
+	padding: 7px;
+	color: #333;
+	background-color: #fff;
+	background-color: rgba(255, 255, 255, 0.6);
+	z-index: 10;
+	position: fixed;
+	top: 10px;
+	left: 60px;
+}
+
+.overlay input {
+	padding: 2px;
+}
