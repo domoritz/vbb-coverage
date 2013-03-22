@@ -1,8 +1,8 @@
 # VBB coverage
 
-Visualization of the stops of the VBB in Berlin and Brandenburg.
+Visualization of the stops of the VBB in Berlin and Brandenburg. Based in open data from the VBB.
 
-Go to http://domoritz.github.com/vbb-coverage/ to see the visualization.
+Go to http://domoritz.github.com/vbb-coverage/ to see the visualization. There is an expimental heatmap based visualisation on the heatmap branch.
 
 ## Uses
 
