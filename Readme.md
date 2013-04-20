@@ -11,3 +11,5 @@ https://github.com/domoritz/leaflet-maskcanvas
 
 For the locate control:
 https://github.com/domoritz/leaflet-locatecontrol
+
+Get the raw VBB data from http://daten.berlin.de/datensaetze/vbb-fahrplan2012
