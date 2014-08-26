@@ -1,0 +1,14 @@
+{
+  "name": "leaflet.maskcanvas",
+  "homepage": "https://github.com/domoritz/leaflet-maskcanvas",
+  "_release": "43b31a5c39",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "43b31a5c39cc73d012372377c14226e1027ff440"
+  },
+  "_source": "git://github.com/domoritz/leaflet-maskcanvas.git",
+  "_target": "*",
+  "_originalSource": "leaflet.maskcanvas",
+  "_direct": true
+}

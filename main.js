@@ -32,7 +32,7 @@ $(function() {
             map.fitBounds(coverageLayer.bounds);
             map.addLayer(coverageLayer);
         }).error(function(err) {
-            alert('An error occurred', err);
+            alert('An error occurred when loading the JSON', err);
         });
     };
 

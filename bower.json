@@ -1,0 +1,29 @@
+{
+  "name": "vbb-coverage",
+  "version": "0.0.0",
+  "homepage": "https://github.com/domoritz/vbb-coverage",
+  "authors": [
+    "Dominik Moritz <domoritz@gmail.com>"
+  ],
+  "description": "A map showing where the vbb has train stations or bus stops.",
+  "main": "index.html",
+  "keywords": [
+    "vbb",
+    "open",
+    "data",
+    "coverage"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "leaflet.locatecontrol": "~0.30.0",
+    "leaflet.maskcanvas": "*"
+  }
+}

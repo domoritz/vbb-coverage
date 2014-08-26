@@ -4,6 +4,8 @@ L.TileLayer.MaskCanvas = L.TileLayer.Canvas.extend({
         useAbsoluteRadius: true,  // true: radius in meters, false: radius in pixels
         color: '#000',
         opacity: 0.5,
+        noMask: false,  // true results in normal (filled) circled, instead masked circles
+        lineColor: undefined,  // color of the circle outline if noMask is true
         debug: false
     },
 
@@ -41,26 +43,39 @@ L.TileLayer.MaskCanvas = L.TileLayer.Canvas.extend({
         g.strokeText(ctx.tilePoint.x + ' ' + ctx.tilePoint.y + ' ' + ctx.zoom, max / 2 - 30, max / 2 - 10);
     },
 
-    _createTile: function () {
+
+    _oldCreateTile: function () {
         var tile = this._canvasProto.cloneNode(false);
         tile.onselectstart = tile.onmousemove = L.Util.falseFn;
         return tile;
     },
 
+
     setData: function(dataset) {
         var self = this;
+
 
         this.bounds = new L.LatLngBounds(dataset);
 
         this._quad = new QuadTree(this._boundsToQuery(this.bounds), false, 6, 6);
 
+        var first = dataset[0];
+        var xc = 1, yc = 0;
+        if (first instanceof L.LatLng) {
+            xc = "lng";
+            yc = "lat";
+        }
+
         dataset.forEach(function(d) {
             self._quad.insert({
-                x: d[1], //lng
-                y: d[0] //lat
+                x: d[xc], //lng
+                y: d[yc] //lat
             });
         });
-        this.redraw();
+
+        if (this._map) {
+            this.redraw();
+        }
     },
 
     setRadius: function(radius) {
@@ -87,19 +102,30 @@ L.TileLayer.MaskCanvas = L.TileLayer.Canvas.extend({
             self = this,
             p,
             tileSize = this.options.tileSize;
-        g.globalCompositeOperation = 'source-over';
         g.fillStyle = this.options.color;
-        g.fillRect(0, 0, tileSize, tileSize);
-        g.globalCompositeOperation = 'destination-out';
+
+        if (this.options.lineColor) {
+          g.strokeStyle = this.options.lineColor;
+          g.lineWidth = this.options.lineWidth || 1;
+        }
+        g.globalCompositeOperation = 'source-over';
+        if (!this.options.noMask) {
+            g.fillRect(0, 0, tileSize, tileSize);
+            g.globalCompositeOperation = 'destination-out';
+        }
         coordinates.forEach(function(coords) {
             p = self._tilePoint(ctx, coords);
             g.beginPath();
             g.arc(p[0], p[1], self._getRadius(), 0, Math.PI * 2);
             g.fill();
+            if (self.options.lineColor) {
+                g.stroke();
+            }
         });
     },
 
     _boundsToQuery: function(bounds) {
+        if (bounds.getSouthWest() == undefined) { return {x: 0, y: 0, width: 0.1, height: 0.1}; }  // for empty data sets
         return {
             x: bounds.getSouthWest().lng,
             y: bounds.getSouthWest().lat,
@@ -163,6 +189,9 @@ L.TileLayer.MaskCanvas = L.TileLayer.Canvas.extend({
     }
 });
 
-L.TileLayer.maskCanvas = function (options) {
-    return new L.TileLayer.MaskCanvas(options);
+L.TileLayer.maskCanvas = function(options) {
+    var mc = new L.TileLayer.MaskCanvas(options);
+    leafletVersion = parseInt(L.version.match(/\d{1,}\.(\d{1,})\.\d{1,}/)[1], 10);
+    if (leafletVersion < 7) mc._createTile = mc._oldCreateTile;
+    return mc;
 };
