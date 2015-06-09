@@ -23,7 +23,8 @@
     "tests"
   ],
   "dependencies": {
-    "leaflet.locatecontrol": "~0.30.0",
-    "leaflet.maskcanvas": "*"
+    "leaflet.locatecontrol": "^0.43.0",
+    "leaflet.maskcanvas": "*",
+    "leaflet": "^0.7.3"
   }
 }
